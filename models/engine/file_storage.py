@@ -26,7 +26,7 @@ class FileStorage:
         """
         if cls:
             d = {}
-            for key, value in self.__objects:
+            for key, value in self.__objects.items:
                 if type(value) == cls:
                     d[key] = value
             return d
