@@ -1,6 +1,6 @@
 # HBNB
 
-This is the console /command interpreter for the Holberton Airbnb clone projects. The console can be use to store objects in and retrieve objects from a JSON.
+This is the console /command interpreter for the Holberton Airbnb clone projects. The console can be used to store objects in and retrieve objects from a JSON.
 
 ### Supported classes:
 * BaseModel
