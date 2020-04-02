@@ -63,7 +63,6 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """
-        delete obj from __objects
+        """delete obj
         """
         del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
