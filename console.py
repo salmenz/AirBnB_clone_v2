@@ -36,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance of BaseModel, saves it
         Exceptions:
             SyntaxError: when there is no args given
-            NameError: when there is no object taht has the name
+            NameError: when there is no object that has the name
         """
         try:
             if not line:
