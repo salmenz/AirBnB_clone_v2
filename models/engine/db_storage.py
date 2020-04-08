@@ -25,37 +25,34 @@ class DBStorage():
                'State',
                'Place']
 
-
     def __init__(self):
-        """init"""
-        self.__engine = create_engine
-        ('mysql+mysqldb://{}:{}@{}/{}'.format
-         (os.getenv('HBNB_MYSQL_USER'),
-          os.getenv('HBNB_MYSQL_PWD'),
-          os.getenv('HBNB_MYSQL_HOST'),
-          os.getenv('HBNB_MYSQL_DB')),
-         pool_pre_ping=True)
+        """ Init method for DBStorage class """
+        user = os.getenv("HBNB_MYSQL_USER")
+        password = os.getenv("HBNB_MYSQL_PWD")
+        host = os.getenv("HBNB_MYSQL_HOST")
+        dbname = os.getenv("HBNB_MYSQL_DB")
+
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
+                           .format(user,
+                                   password,
+                                   host,
+                                   dbname), pool_pre_ping=True)
         if os.getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """ Returns a dictionary of objects which their name is specified """
-        mylist = list()
-        newdict = dict()
-        if cls is not None:
-            obj = eval(cls)
-            mylist = self.__session.query(obj).all()
-            for item in mylist:
-                key = item.__class__.__name__ + "." + item.id
-                newdict[key] = item
+        """
+        return a dictionary: (like FileStorage)
+        """
+        d = {}
+        objects = []
+        if cls:
+            objects = self.__session.query(eval(cls)).all()
         else:
-            for obj in self.classes:
-                obj = eval(obj)
-                mylist = self.__session.query(obj).all()
-                for item in mylist:
-                    key = item.__class__.__name__ + "." + item.id
-                    newdict[key] = item
-        return (newdict)
+            for item in self.classes:
+                objects += self.__session.query(eval(item)).all()
+        d = {obj.__class__.__name__ + '.' + obj.id: obj for obj in objects}
+        return d
 
     def new(self, obj):
         """ Adds a new object to the database """
