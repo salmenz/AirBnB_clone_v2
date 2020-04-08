@@ -17,11 +17,9 @@ class State(BaseModel, Base):
     cities = relationship("City", cascade="save-update, delete", backref="state")
 
     @property
-    def cities(self):
-        """ Getter attribut"""
-        cities = storage.all(City)
-        d = dict()
-        for key, value in cities:
-            if value.id == self.id:
-                d[key] = value
-        return (d)
+      def cities(self):
+                """Property getter of list of city instances
+                where state_id equals current State.id"""
+                city_dict = models.storage.all(City)
+                return [city for city in city_dict.values()
+                        if city.state_id == self.id]
