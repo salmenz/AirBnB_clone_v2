@@ -49,8 +49,11 @@ class DBStorage():
                 d[key] = item
         else:
             for item in self.classes:
-                objects += self.__session.query(eval(item)).all()
-        d = {obj.__class__.__name__ + '.' + obj.id: obj for obj in objects}
+                item = eval(item)
+                objects = self.__session.query(item).all()
+                for obj in objects:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    d[key] = obj
         return d
 
     def new(self, obj):
