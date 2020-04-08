@@ -52,3 +52,19 @@ Ex:
 Additionally, the console supports `<class name>.<command>(<parameters>)` syntax.
 Ex:
 `City.show(my_city_id)`
+#### All
+`all` or `all <class name>`
+Ex:
+`all` or `all State`
+
+#### Quit
+`quit` or `EOF`
+
+#### Help
+`help` or `help <command>`
+Ex:
+`help` or `help quit`
+
+Additionally, the console supports `<class name>.<command>(<parameters>)` syntax.
+Ex:
+`City.show(my_city_id)`
