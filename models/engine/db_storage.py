@@ -1,28 +1,29 @@
 #!/usr/bin/python3
-"""This is the DB storage class for AirBnB"""
+"""db_storage engine"""
 import os
-
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
-from models.city import City
-from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-
+from models.amenity import Amenity
+from models.city import City
 from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 class DBStorage():
-    """ This class maps python classes to SQL Database using SQLAlchemy
-    Attributes:
-        __engine: the engine used
-        __objects: the session linking the db with program
+    """ 
+    class
     """
     __engine = None
     __session = None
-    all_classes = ["State", "City", "User", "Place", "Review", "Amenity"]
+    classes = ['Amenity',
+               'City',
+               'User',
+               'Review',
+               'State',
+               'Place']
 
     def __init__(self):
         """ Init method for DBStorage class """
@@ -50,7 +51,7 @@ class DBStorage():
                 key = item.__class__.__name__ + "." + item.id
                 newdict[key] = item
         else:
-            for obj in self.all_classes:
+            for obj in self.classes:
                 obj = eval(obj)
                 mylist = self.__session.query(obj).all()
                 for item in mylist:
