@@ -28,10 +28,10 @@ class DBStorage():
         """init"""
         self.__engine = create_engine
         ('mysql+mysqldb://{}:{}@{}/{}'.format
-         (os.environ['HBNB_MYSQL_USER'],
-          os.environ['HBNB_MYSQL_PWD'],
-          os.environ['HBNB_MYSQL_HOST'],
-          os.environ['HBNB_MYSQL_DB']),
+         (os.getenv("HBNB_MYSQL_USER"),
+          os.getenv("HBNB_MYSQL_PWD"),
+          os.getenv("HBNB_MYSQL_HOST"),
+          os.getenv("HBNB_MYSQL_DB")),
          pool_pre_ping=True)
         if os.getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
@@ -41,9 +41,12 @@ class DBStorage():
         return a dictionary: (like FileStorage)
         """
         d = {}
-        objects = []
+        objects = list()
         if cls:
             objects = self.__session.query(eval(cls)).all()
+            for item in objects:
+                key = item.__class__.__name__ + '.' + item.id
+                d[key] = item
         else:
             for item in self.classes:
                 objects += self.__session.query(eval(item)).all()
