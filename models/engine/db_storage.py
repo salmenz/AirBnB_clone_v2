@@ -26,7 +26,7 @@ class DBStorage():
                    'User',
                    'State']
 
-    d def __init__(self):
+    def __init__(self):
         """init"""
         self.__engine = create_engine
         ('mysql+mysqldb://{}:{}@{}/{}'.format
