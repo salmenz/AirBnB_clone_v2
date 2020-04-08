@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 import models
+from models import storage
 
 
 class State(BaseModel, Base):
@@ -18,7 +19,7 @@ class State(BaseModel, Base):
     @property
     def cities(self):
         """ Getter attribut"""
-        cities = model.storage.all(City)
+        cities = storage.all(City)
         d = dict()
         for key, value in cities:
             if value.id == self.id:
