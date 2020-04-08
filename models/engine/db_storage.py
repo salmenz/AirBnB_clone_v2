@@ -51,20 +51,27 @@ class DBStorage():
         return d
 
     def new(self, obj):
-        """ Adds a new object to the database """
+        """
+        add the object to the current database session (self.__session)
+        """
         self.__session.add(obj)
 
     def save(self):
-        """ Commits all changes made in current session """
+        """
+        commit all changes of the current database session (self.__session)
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
-        """ Deletes an existing object from the database """
+        """
+        Delete obj from current database session if not None
+        """
         if obj:
             self.__session.delete(obj)
 
     def reload(self):
-        """ Creates all tables in database and set a session """
+        """ Creates all tables in database and
+        create the current database session """
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(expire_on_commit=False)
         session_factory.configure(bind=self.__engine)
